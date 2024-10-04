@@ -12,11 +12,14 @@ function displayTasks(tasks) {
             listItem.classList.toggle('checked');
         });
 
-        listItem.textContent = task;
+        // Create a text node for the task content
+        const taskText = document.createTextNode(task);
 
-        // Insert the checkbox before the task text
-        listItem.prepend(checkbox);
+        // Add the checkbox and task text to the list item
+        listItem.appendChild(checkbox);
+        listItem.appendChild(taskText);
         
+        // Create a delete button
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
         deleteButton.textContent = 'Delete';
@@ -24,7 +27,10 @@ function displayTasks(tasks) {
             deleteTask(index);
         });
 
+        // Add the delete button to the list item
         listItem.appendChild(deleteButton);
+
+        // Append the list item to the todo list
         todoList.appendChild(listItem);
     });
 }
