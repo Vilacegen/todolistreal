@@ -27,6 +27,10 @@ button {
     cursor: pointer;
 }
 
+#add-task-button {
+    border: none;
+}
+
 ul {
     list-style: none;
     padding: 0;
