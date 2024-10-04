@@ -1,51 +1,30 @@
-const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-        displayTasks(tasks);
+function displayTasks(tasks) {
+    const todoList = document.getElementById('todo-list');
+    todoList.innerHTML = ''; 
 
-      
-        const addTaskButton = document.getElementById('add-task-button');
-        addTaskButton.addEventListener('click', addTask);
+    tasks.forEach((task, index) => {
+        const listItem = document.createElement('li');
 
-   
-        function addTask() {
-            const taskInput = document.getElementById('task-input');
-            const newTask = taskInput.value.trim();
+        // Create a checkbox for each task
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', function () {
+            listItem.classList.toggle('checked');
+        });
 
-            if (newTask !== "") {
-                tasks.push(newTask);
-                localStorage.setItem('tasks', JSON.stringify(tasks)); 
-                displayTasks(tasks);
-                taskInput.value = ""; 
-            }
-        }
+        listItem.textContent = task;
 
-    
-        function displayTasks(tasks) {
-            const todoList = document.getElementById('todo-list');
-            todoList.innerHTML = ''; 
+        // Insert the checkbox before the task text
+        listItem.prepend(checkbox);
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', () => {
+            deleteTask(index);
+        });
 
-            tasks.forEach((task, index) => {
-                const listItem = document.createElement('li');
-                listItem.textContent = task;
-                
-          listItem.addEventListener("click", function() {
-              listItem.classList.toggle("checked")
-          })
-             
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('delete-button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.addEventListener('click', () => {
-                    deleteTask(index);
-                });
-                listItem.appendChild(deleteButton);
-
-                todoList.appendChild(listItem);
-            });
-        }
-
-   
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            localStorage.setItem('tasks', JSON.stringify(tasks)); 
-            displayTasks(tasks);
-        }
+        listItem.appendChild(deleteButton);
+        todoList.appendChild(listItem);
+    });
+}
