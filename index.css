@@ -45,10 +45,7 @@ li::before{
     margin-left: 4px;
 }
 
-.checked::before{
-    content: "\2610";
-    margin-left: 4px;
-}
+
 
 .delete-button {
     background-color: #f44336;
